@@ -194,7 +194,7 @@ export default function Authenticated({ user, header, children }) {
                 draggable
                 pauseOnHover
                 theme="colored"
-                transition:Bounce
+                transition={Bounce}
             />
         </div>
     );

@@ -7,11 +7,12 @@
         "prettier": "prettier --write --no-bracket-spacing --single-quote --jsx-bracket-same-line --print-width 80 resources/js/*/*/*"
     },
     "devDependencies": {
-        "@headlessui/react": "^1.4.2",
+        "@headlessui/react": "^1.7.18",
         "@heroicons/react": "^1.0.5",
         "@inertiajs/react": "^1.0.0",
         "@tailwindcss/forms": "^0.5.3",
         "@types/node": "^18.13.0",
+        "@types/pusher-js": "^5.1.0",
         "@types/react": "^18.0.28",
         "@types/react-dom": "^18.0.10",
         "@vitejs/plugin-react": "^4.2.0",
@@ -21,17 +22,20 @@
         "perfect-scrollbar": "^1.5.5",
         "postcss": "^8.4.31",
         "postcss-import": "^15.1.0",
+        "pusher-js": "^8.4.0-rc2",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-transition-group": "^4.4.2",
         "tailwindcss": "^3.2.1",
         "typescript": "^5.0.2",
-        "vite": "^5.0.0",
-        "@types/pusher-js": "^5.1.0",
-        "pusher-js": "^8.4.0-rc2"
+        "vite": "^5.0.0"
     },
     "dependencies": {
+        "accordion": "^3.0.2",
+        "add": "^2.0.6",
         "laravel-echo": "^1.16.0",
-        "react-toastify": "^10.0.4"
+        "lucide-react": "^0.343.0",
+        "react-toastify": "^10.0.4",
+        "shadcn-ui": "^0.8.0"
     }
 }

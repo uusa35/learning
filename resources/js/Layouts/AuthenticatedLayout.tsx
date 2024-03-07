@@ -83,6 +83,12 @@ export default function Authenticated({
                                 >
                                     Dashboard
                                 </NavLink>
+                                <NavLink
+                                    href={route("backend.sample")}
+                                    active={route().current("backend.sample")}
+                                >
+                                    Sample Page
+                                </NavLink>
                             </div>
                         </div>
                         <div className="hidden sm:flex sm:items-center sm:ms-6">

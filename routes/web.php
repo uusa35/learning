@@ -50,6 +50,9 @@ Route::group(['middleware' => ['role:doctor|receptionest', 'auth'], 'as' => 'bac
         Route::get('/dashboard', function () {
             return Inertia::render('Dashboard');
         })->middleware(['verified'])->name('home');
+        Route::get('/sample', function () {
+            return Inertia::render('SamplePage');
+        })->name('sample');
     });
 });
 

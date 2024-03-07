@@ -4,7 +4,7 @@
 /public/build
 /public/hot
 /public/storage
-/js/redux
+/resources/js/redux
 /storage/*.key
 /vendor
 .env

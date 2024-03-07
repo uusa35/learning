@@ -14,9 +14,29 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('name_ar')->nullable();
+            $table->string('name_en')->nullable();
+            $table->string('title_ar')->nullable();
+            $table->string('title_en')->nullable();
             $table->string('email')->unique();
+            $table->string('mobile');
+            $table->string('civil_id')->nullable();
+            $table->string('nationality')->nullable();
+            $table->date('dob');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            $table->boolean('active')->default(true);
+            $table->decimal('appointment_fees', 6, 2)->unsigned();
+            $table->string('experience')->nullable();
+            $table->enum('blood', ['A', 'B', 'A+', 'A-', 'AB', 'O-', 'O+', 'B+', 'B-', 'AB+', 'AB-']);
+            $table->boolean('has_file')->default(false);
+            $table->string('image')->default('square.png')->nullable();
+            $table->string('notes')->nullable();
+            $table->string('description_ar')->nullable();
+            $table->string('description_en')->nullable();
+            $table->string('signature')->nullable()->default(null);
+
             $table->rememberToken();
             $table->timestamps();
         });

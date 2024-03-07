@@ -1,12 +1,12 @@
-import GuestLayout from '@/Layouts/GuestLayout';
-import InputError from '@/Components/InputError';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import { Head, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import GuestLayout from '@/layouts/GuestLayout';
+import InputError from '@/components/InputError';
+import PrimaryButton from '@/components/PrimaryButton';
+import TextInput from '@/components/TextInput';
+import {Head, useForm} from '@inertiajs/react';
+import {FormEventHandler} from 'react';
 
-export default function ForgotPassword({ status }: { status?: string }) {
-    const { data, setData, post, processing, errors } = useForm({
+export default function ForgotPassword({status}: {status?: string}) {
+    const {data, setData, post, processing, errors} = useForm({
         email: '',
     });
 
@@ -21,11 +21,16 @@ export default function ForgotPassword({ status }: { status?: string }) {
             <Head title="Forgot Password" />
 
             <div className="mb-4 text-sm text-gray-600 dark:text-gray-400">
-                Forgot your password? No problem. Just let us know your email address and we will email you a password
-                reset link that will allow you to choose a new one.
+                Forgot your password? No problem. Just let us know your email
+                address and we will email you a password reset link that will
+                allow you to choose a new one.
             </div>
 
-            {status && <div className="mb-4 font-medium text-sm text-green-600 dark:text-green-400">{status}</div>}
+            {status && (
+                <div className="mb-4 font-medium text-sm text-green-600 dark:text-green-400">
+                    {status}
+                </div>
+            )}
 
             <form onSubmit={submit}>
                 <TextInput

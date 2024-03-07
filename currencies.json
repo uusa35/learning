@@ -1,0 +1,72 @@
+[
+    {
+        "name_ar": " دينار كويتي",
+        "name_en": "Kuwait Dinar",
+        "currency_symbol_ar": "د.ك",
+        "currency_symbol_en": "KWD",
+        "country_code": "KWT",
+        "exchange_rate": "1.00",
+        "active": 1,
+        "country_id": 1
+    },
+    {
+        "name_ar": " سعودي ريال",
+        "name_en": "Ryal Saudi",
+        "currency_symbol_ar": "ر.س",
+        "currency_symbol_en": "SR",
+        "country_code": "KSA",
+        "exchange_rate": "12.31",
+        "active": 1,
+        "country_id": 2
+    },
+    {
+        "name_ar": "درهم إماراتي",
+        "name_en": "AED",
+        "currency_symbol_ar": "د.إ",
+        "currency_symbol_en": "AED",
+        "country_code": "UAE",
+        "exchange_rate": 12.06,
+        "active": 1,
+        "country_id": 3
+    },
+    {
+        "name_ar": "دينار بحريني",
+        "name_en": "BHD",
+        "currency_symbol_ar": "د.ب",
+        "currency_symbol_en": "BHD",
+        "country_code": "BHD",
+        "exchange_rate": 12.06,
+        "active": 1,
+        "country_id": 4
+    },
+    {
+        "name_ar": "ريال عماني",
+        "name_en": "OMR",
+        "currency_symbol_ar": "ر.ع",
+        "currency_symbol_en": "OMR",
+        "country_code": "OMA",
+        "exchange_rate": 12.06,
+        "active": 1,
+        "country_id": 5
+    },
+    {
+        "name_ar": "ريال قطري",
+        "name_en": "QAR",
+        "currency_symbol_ar": "ر.ق",
+        "currency_symbol_en": "QAR",
+        "country_code": "QAT",
+        "exchange_rate": 12.06,
+        "active": 1,
+        "country_id": 6
+    },
+    {
+        "name_ar": "دولار أمريكي",
+        "name_en": "United States",
+        "currency_symbol_ar": "د.أ",
+        "currency_symbol_en": "US",
+        "country_code": "USA",
+        "exchange_rate": 3.06,
+        "active": 1,
+        "country_id": 6
+    }
+]

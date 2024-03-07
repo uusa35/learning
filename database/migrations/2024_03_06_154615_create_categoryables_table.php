@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId("category_id")->references("id")->on("categories");
             $table->morphs("categoryable");
-            $table->timestamps();
         });
     }
 

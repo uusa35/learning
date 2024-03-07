@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Appointment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,9 @@ class PrescriptionFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'appointment_id' => Appointment::all()->random()->id,
+            'description' => fake()->paragraph(1),
+            'notes' => fake()->paragraph(1),
         ];
     }
 }

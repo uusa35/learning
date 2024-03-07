@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +18,13 @@ class CouponFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'code' => fake()->numberBetween(2222, 9999),
+            'value' => fake()->randomNumber(5, 10),
+            'is_percentage' => fake()->boolean(),
+            'is_permanent' => fake()->boolean(),
+            'consumed' => fake()->boolean(),
+            'start_date' => Carbon::parse(fake()->dateTime('+1 day')),
+            'end_date' => Carbon::parse(fake()->dateTime('+2 days')),
         ];
     }
 }

@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,7 +16,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, ModelHelpers;
 
     protected $guarded = ['id'];
 
@@ -43,7 +44,7 @@ class User extends Authenticatable
 
     public function attributes(): BelongsToMany
     {
-        return $this->belongsToMany(Attribute::class);
+        return $this->belongsToMany(Attribute::class, 'user_attribute');
     }
 
     public function images(): MorphMany
@@ -61,24 +62,34 @@ class User extends Authenticatable
         return $this->hasMany(Prescription::class);
     }
 
-    public function pateint_appointments(): HasMany
+    public function patient_appointments(): HasMany
     {
         return $this->hasMany(Appointment::class, 'patinet_id');
     }
 
     public function doctor_appointments(): HasMany
     {
-        return $this->hasMany(Appointment::class, 'doctor_id');
+        return $this->hasMany(Appointment::class, 'doctor_id', 'id');
     }
 
     public function creator_appointments(): HasMany
     {
-        return $this->hasMany(Appointment::class, 'created_by');
+        return $this->hasMany(Appointment::class, 'creator_id');
     }
 
-    public function orders(): HasMany
+    public function patient_orders(): HasMany // for patient
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function doctor_orders(): HasManyThrough // for doctors
+    {
+        return $this->through(Appointment::class)->has(Order::class);
+    }
+
+    public function createor_orders(): HasMany
+    {
+        return $this->hasMany(Order::class, 'creator_id');
     }
 
     public function certificates(): HasMany
@@ -98,11 +109,32 @@ class User extends Authenticatable
 
     public function getHasSignatureAttribute(): bool
     {
-        return $this->hasRole('Patient') && !is_null($this->signature);
+        return $this->hasRole('patient') && !is_null($this->signature);
     }
 
     public function coupons(): HasMany
     {
         return $this->hasMany(Coupon::class);
+    }
+
+    /**
+     * @param $q
+     * @return \Illuminate\Database\Eloquent\Builder
+     * QueryFilters used within the search
+     */
+    public function scopeNotAdmins($q): void
+    {
+        $q->whereDoesntHave("roles", fn ($q) => $q->where("name", "admin")->orWhere("name", "super"));
+    }
+
+
+    /**
+     * @param $q
+     * @return \Illuminate\Database\Eloquent\Builder
+     * QueryFilters used within the search
+     */
+    public function scopeDoctors($q): void
+    {
+        $q->whereHas("roles", fn ($q) => $q->where("name", "doctor"));
     }
 }

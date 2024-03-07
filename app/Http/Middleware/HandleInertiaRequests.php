@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
 use Tighten\Ziggy\Ziggy;
 
@@ -35,8 +36,13 @@ class HandleInertiaRequests extends Middleware
             ...parent::share($request),
             'currentRouteName' => $request->route()->getName(),
             'setting' => Setting::first(),
+            'currentLang' => session()->get('lang') ?? 'en',
             'auth' => [
                 'user' => $request->user(),
+                'isAdmin' => $request->user() ? $request->user()->hasRole('admin|super') : false,
+                'isDoctor' => $request->user() ? $request->user()->hasRole('doctor') : false,
+                'isReceptionist' => $request->user() ? $request->user()->hasRole('receptionist') : false,
+                'api_token' => $request->user() ?  $request->user()->api_token : null
             ],
             'ziggy' => fn () => [
                 ...(new Ziggy)->toArray(),

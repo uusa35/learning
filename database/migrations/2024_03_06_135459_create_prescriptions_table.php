@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('prescriptions', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('appointment_id')->references('id')->on('appointments')->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('description');
-            $table->string('notes');
+            $table->foreignId('appointment_id')->references('id')->on('appointments')->cascadeOnDelete();
+            $table->string('description')->nullable();
+            $table->string('notes')->nullable();
             $table->timestamps();
         });
     }

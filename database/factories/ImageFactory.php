@@ -17,7 +17,11 @@ class ImageFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->name(),
+            "imagable_id" => $this->faker->numberBetween(1, 60),
+            "imagable_type" => $this->faker->randomElement([
+                "App\Models\User"
+            ]),
         ];
     }
 }

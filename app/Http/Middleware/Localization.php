@@ -16,8 +16,7 @@ class Localization
      */
     public function handle($request, Closure $next)
     {
-
-        $lang = session()->has("lang") ? session()->get("lang") : "ar";
+        $lang = session()->has("lang") ? session()->get("lang") : "en";
         session()->put("lang", $lang);
         $request->headers->set("Accept-Language", $lang);
         app()->setLocale($lang);

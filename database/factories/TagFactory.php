@@ -18,7 +18,6 @@ class TagFactory extends Factory
     {
         $fakerAr = \Faker\Factory::create('ar_JO');
         return [
-            'name' => $this->faker->word,
             'name_ar' => $fakerAr->word,
             'name_en' => $this->faker->word,
             'order' => $this->faker->numberBetween(1, 59),

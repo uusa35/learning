@@ -17,7 +17,8 @@ class AttributeFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name_ar' => fake()->name(),
+            'name_en' => fake()->name(),
         ];
     }
 }

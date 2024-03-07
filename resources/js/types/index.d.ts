@@ -1,4 +1,5 @@
 import { Config } from 'ziggy-js';
+import { ElementPagination } from './queries';
 
 export interface User {
     id: number;
@@ -12,6 +13,12 @@ export type PageProps<T extends Record<string, unknown> = Record<string, unknown
         user: User;
     };
     ziggy: Config & { location: string };
+    currentRouteName: string;
+    currentLang: Locale["lang"];
+    elements?: ElementPagination<any>;
+    element?: any | User;
+    categories?: [any]
+    setting: Setting;
 };
 
 export interface Locale {

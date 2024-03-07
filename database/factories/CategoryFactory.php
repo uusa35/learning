@@ -23,7 +23,8 @@ class CategoryFactory extends Factory
             'name_en' => 'category ' . $this->faker->firstName,
             'order' => $this->faker->numberBetween(1, 99),
             'image' => 'square.png',
-            'parent_id' => Category::where('parent_id', 0)->pluck('id')->shuffle()->first(),
+            // 'parent_id' => Category::where('parent_id', 0)->pluck('id')->shuffle()->first(),
+            
         ];
     }
 }

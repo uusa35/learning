@@ -1,18 +1,68 @@
-import { useState, PropsWithChildren, ReactNode } from "react";
 import ApplicationLogo from "@/components/ApplicationLogo";
 import Dropdown from "@/components/Dropdown";
 import NavLink from "@/components/NavLink";
 import ResponsiveNavLink from "@/components/ResponsiveNavLink";
-import { Link } from "@inertiajs/react";
-import { User } from "@/types";
+import { trans } from "@/constants";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { setLocale } from "@/redux/slices/localeSlice";
+import {
+    showErrorToastMessage,
+    showSuccessToastMessage,
+} from "@/redux/slices/toastMessageSlice";
+import { Locale } from "@/types";
+import { Link, router, usePage } from "@inertiajs/react";
+import { first, isEmpty, isNull, values } from "lodash";
+import { PropsWithChildren, useEffect, useState } from "react";
 
 export default function Authenticated({
-    user,
     header,
+    showBackBtn = false,
     children,
-}: PropsWithChildren<{ user: User; header?: ReactNode }>) {
+}: PropsWithChildren<{
+    header?: string;
+    showBackBtn?: boolean;
+}>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
+    const {
+        url,
+        props: { setting, flash, auth, currentLang, errors },
+    }: any = usePage();
+    const {
+        locale: { lang },
+        toastMessage: { showToast },
+    } = useAppSelector((state) => state);
+    const dispatch = useAppDispatch();
+
+    const handleChangeLang = async (lang: Locale["lang"]) => {
+        dispatch(setLocale(lang));
+    };
+    const handleClick = () => {
+        router.visit(route("backend.send.notification"));
+    };
+
+    useEffect(() => {
+        if (currentLang !== trans.getLocale() || currentLang !== lang) {
+            trans.setLocale(currentLang);
+            dispatch(setLocale(currentLang));
+        }
+    }, [currentLang, url]);
+
+    useEffect(() => {
+        if (!showToast) {
+            if (flash && !isNull(flash.success)) {
+                dispatch(showSuccessToastMessage({ content: flash.success }));
+            } else if (flash && !isNull(flash.error)) {
+                dispatch(showErrorToastMessage({ content: flash.error }));
+            } else if (!isEmpty(errors)) {
+                dispatch(
+                    showErrorToastMessage({
+                        content: first(values(errors)),
+                    }),
+                );
+            }
+        }
+    }, [currentLang, flash, errors]);
 
     return (
         <div className="min-h-screen bg-gray-100 dark:bg-gray-900">
@@ -44,7 +94,7 @@ export default function Authenticated({
                                                 type="button"
                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150"
                                             >
-                                                {user.name}
+                                                {auth.user.name_en}
 
                                                 <svg
                                                     className="ms-2 -me-0.5 h-4 w-4"
@@ -84,7 +134,7 @@ export default function Authenticated({
                             <button
                                 onClick={() =>
                                     setShowingNavigationDropdown(
-                                        (previousState) => !previousState
+                                        (previousState) => !previousState,
                                     )
                                 }
                                 className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out"
@@ -141,15 +191,17 @@ export default function Authenticated({
                     <div className="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
                         <div className="px-4">
                             <div className="font-medium text-base text-gray-800 dark:text-gray-200">
-                                {user.name}
+                                {auth.user.name_en}
                             </div>
                             <div className="font-medium text-sm text-gray-500">
-                                {user.email}
+                                {auth.email}
                             </div>
                         </div>
 
                         <div className="mt-3 space-y-1">
-                            <ResponsiveNavLink href={route("backend.profile.edit")}>
+                            <ResponsiveNavLink
+                                href={route("backend.profile.edit")}
+                            >
                                 Profile
                             </ResponsiveNavLink>
                             <ResponsiveNavLink

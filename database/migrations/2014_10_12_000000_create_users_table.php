@@ -36,7 +36,7 @@ return new class extends Migration
             $table->string('description_ar')->nullable();
             $table->string('description_en')->nullable();
             $table->string('signature')->nullable()->default(null);
-
+            $table->string('api_token');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -17,7 +17,9 @@ class MedicineFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'name' => fake()->name(),
+            'no_of_does' => fake()->randomNumber(1, 4),
+            'description' => fake()->paragraph(1),
         ];
     }
 }

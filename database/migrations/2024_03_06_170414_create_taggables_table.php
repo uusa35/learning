@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId("tag_id")->references("id")->on("tags");
             $table->morphs("taggable");
-            $table->timestamps();
         });
     }
 

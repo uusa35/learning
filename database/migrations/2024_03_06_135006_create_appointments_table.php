@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('patient_id')->references('id')->on('users')->cascadeOnDelete();
             $table->foreignId('doctor_id')->references('id')->on('users')->cascadeOnDelete();
 
-            $table->foreignId('created_by')->nullable();
+            $table->foreignId('creator_id')->nullable()->constrained()->on('users');
             $table->enum('status', ['pending', 'canceled', 'complete', 'postponed']);
             $table->string('notes')->nullable();
             $table->timestamps();

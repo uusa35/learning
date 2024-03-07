@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['pending', 'paid', 'failed', 'under_process', 'completed', 'delivered', 'canceled', 'unknown', 'success'])->nullable()->default('pending');
+            $table->enum('status', ['pending', 'paid', 'failed', 'under_process', 'completed', 'canceled', 'success'])->nullable()->default('pending');
             $table->boolean('paid')->default(false);
             $table->decimal('total', 6, 2)->unsigned();
             $table->decimal('discount', 6, 2)->unsigned()->default(0); //
@@ -25,9 +25,8 @@ return new class extends Migration
             $table->string('reference_id')->deafult('0');
             $table->enum('payment_method', ['knet', 'visa', 'cash'])->nullable();
             $table->string('payment_provider_response')->nullable();
-            $table->foreignId('user_id')->references('id')->on('users')->constrained('users')->unsigned();
             $table->foreignId('appointment_id')->nullable()->constrained();
-            $table->foreignId('created_by')->nullable()->constrained();
+            $table->foreignId('creator_id')->nullable()->constrained()->on('users');
             $table->date('expires_at')->nullable();
             $table->date('paid_at')->nullable();
             $table->timestamps();

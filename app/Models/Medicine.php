@@ -10,7 +10,7 @@ class Medicine extends PrimaryModel
 
     public function prescription(): BelongsToMany
     {
-        return $this->belongsToMany(Prescription::class);
+        return $this->belongsToMany(Prescription::class, 'prescription_medicine');
     }
 
     public function categories(): MorphToMany

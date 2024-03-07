@@ -17,7 +17,7 @@ export const trans = new Lang({
 });
 
 export const getTrans = (element: string): string => trans.get(`general.${element}`)
-export const getCurrentModule = (currentRouteName: string): string => first(split(currentRouteName, ".", 1)) ?? ``
+export const getCurrentModule = (currentRouteName: string): string => split(currentRouteName, ".", 2)[1] ?? ``
 export const getPrice = (element: number, country: Country): string => `${(element * country.exchange_rate).toFixed(2)} ${country.currency_symbol}`;
 
 // export const toEn = (s: string) =>

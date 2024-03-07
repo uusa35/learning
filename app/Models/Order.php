@@ -13,11 +13,11 @@ class Order extends PrimaryModel
 
     public function patient(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->has(User::class)->through(Appointment::class);
     }
 
     public function creator(): BelongsTo
     {
-        return $this->belongsTo(User::class, 'created_by');
+        return $this->belongsTo(User::class, 'creator_id');
     }
 }

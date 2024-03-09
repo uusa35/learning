@@ -44,6 +44,7 @@ class UserFactory extends Factory
             'description_en' => fake()->sentence(2),
             'signature' => fake()->randomElement(['square.png', null]),
             'blood' => fake()->randomElement(['A', 'B', 'A+', 'A-', 'AB', 'O-', 'O+', 'B+', 'B-', 'AB+', 'AB-']),
+            'gender' => fake()->randomElement(['male', 'female']),
             "api_token" => hash('sha256', Str::random(60)),
 
         ];

@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->time('start');
             $table->time('end');
-            $table->foreignId('day_id')->references('id')->on('days')->onDelete('cascade')->unsigned();
-            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade')->unsigned();
+            $table->string('color')->default('blue');
+            $table->foreignId('day_id')->references('id')->on('days')->cascadeOnDelete()->unsigned();
+            $table->foreignId('doctor_id')->references('id')->on('users')->cascadeOnDelete()->unsigned();
             $table->timestamps();
         });
     }

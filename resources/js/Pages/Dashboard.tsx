@@ -5,17 +5,11 @@ import SignatureCanvas from "react-signature-canvas";
 import { useState } from "react";
 import AppointmentCalendar from "@/components/AppointmentCalender";
 
+
 export default function Dashboard({ auth }: PageProps) {
     const [signature, setSignature] = useState<SignatureCanvas | null>();
     return (
-        <AuthenticatedLayout
-            user={auth.user}
-            header={
-                <h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    Dashboard
-                </h2>
-            }
-        >
+        <AuthenticatedLayout header={"Dashboard"}>
             <Head title="Dashboard" />
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -37,6 +31,7 @@ export default function Dashboard({ auth }: PageProps) {
                             />
                         </div>
                         <AppointmentCalendar />
+
                     </div>
                 </div>
             </div>

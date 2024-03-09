@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('medicines', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('image')->default('square.png')->nullable();
+            $table->string('image')->default('medicine.png')->nullable();
             $table->tinyInteger('no_of_does')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();

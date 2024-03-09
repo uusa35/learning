@@ -16,6 +16,6 @@ class Slot extends PrimaryModel
 
     public function doctor(): BelongsTo
     {
-        return $this->belolngsTo(User::class);
+        return $this->belolngsTo(User::class, 'doctor_id');
     }
 }

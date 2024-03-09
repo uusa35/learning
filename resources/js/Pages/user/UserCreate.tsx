@@ -1,18 +1,18 @@
-import AuthenticatedLayout from '@/layouts/AuthenticatedLayout';
-import {Head, Link, router, useForm} from '@inertiajs/react';
-import {PageProps} from '@/types/index.d';
-import {Role, User} from '@/types/queries';
-import {map, values, has, first, isObject, find, keys, get} from 'lodash';
-import {getTrans, trans} from '@/constants';
-import {FormEventHandler, useContext, useState} from 'react';
-import InputLabel from '@/components/InputLabel';
-import TextInput from '@/components/TextInput';
-import InputError from '@/components/InputError';
-import SunEditor, {buttonList} from 'suneditor-react';
-import 'suneditor/dist/css/suneditor.min.css';
-import {TextEditor} from '@/components/TextEditor';
-import axios from 'axios';
-import Select from 'react-select';
+import AuthenticatedLayout from "@/layouts/AuthenticatedLayout";
+import { Head, Link, router, useForm } from "@inertiajs/react";
+import { PageProps } from "@/types/index.d";
+import { Role, User } from "@/types/queries";
+import { map, values, has, first, isObject, find, keys, get } from "lodash";
+import { getTrans, trans } from "@/constants";
+import { FormEventHandler, useContext, useState } from "react";
+import InputLabel from "@/components/InputLabel";
+import TextInput from "@/components/TextInput";
+import InputError from "@/components/InputError";
+import SunEditor, { buttonList } from "suneditor-react";
+import "suneditor/dist/css/suneditor.min.css";
+import { TextEditor } from "@/components/TextEditor";
+import axios from "axios";
+import Select from "react-select";
 
 interface FormProps {
     username: string;
@@ -20,7 +20,6 @@ interface FormProps {
     password_confirmation: string;
     email: string;
     image: string;
-    country_id: string;
     role: string;
     name: any;
     description: any;
@@ -30,7 +29,6 @@ interface FormProps {
 }
 
 export default function ({
-    countries,
     categories,
     tags,
     auth,
@@ -38,18 +36,17 @@ export default function ({
     currentLang,
     currentRouteName,
 }: PageProps) {
-    const {data, setData, post, processing, errors, transform} =
+    const { data, setData, post, processing, errors, transform } =
         useForm<FormProps>({
-            username: '',
-            password: '',
-            password_confirmation: '',
-            email: '',
-            image: '',
-            country_id: '',
-            role: '',
-            name: {ar: '', en: '', ru: ''},
-            description: {ar: '', en: '', ru: ''},
-            caption: {ar: '', en: '', ru: ''},
+            username: "",
+            password: "",
+            password_confirmation: "",
+            email: "",
+            image: "",
+            role: "",
+            name: { ar: "", en: "", ru: "" },
+            description: { ar: "", en: "", ru: "" },
+            caption: { ar: "", en: "", ru: "" },
             categories: [],
             tags: [],
         });
@@ -67,7 +64,7 @@ export default function ({
 
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
-        post(route('user.store'), {preserveScroll: true});
+        post(route("user.store"), { preserveScroll: true });
     };
 
     return (
@@ -82,7 +79,7 @@ export default function ({
                         <div>
                             <InputLabel
                                 htmlFor="username"
-                                value={getTrans('username')}
+                                value={getTrans("username")}
                                 aria-required
                             />
                             <TextInput
@@ -103,7 +100,7 @@ export default function ({
                         <div>
                             <InputLabel
                                 htmlFor="email"
-                                value={getTrans('email')}
+                                value={getTrans("email")}
                                 aria-required
                             />
                             <TextInput
@@ -125,7 +122,7 @@ export default function ({
                         <div>
                             <InputLabel
                                 htmlFor="password"
-                                value={getTrans('password')}
+                                value={getTrans("password")}
                                 aria-required
                             />
                             <TextInput
@@ -148,7 +145,7 @@ export default function ({
                         <div>
                             <InputLabel
                                 htmlFor="password_confirmation"
-                                value={getTrans('password_confirmation')}
+                                value={getTrans("password_confirmation")}
                                 aria-required
                             />
                             <TextInput
@@ -166,37 +163,11 @@ export default function ({
                             />
                         </div>
 
-                        <div>
-                            <InputLabel
-                                htmlFor="country_id"
-                                value={getTrans('country')}
-                                aria-required
-                            />
-                            <select
-                                onChange={(e) => handleChange(e)}
-                                id="country_id"
-                                name="country_id"
-                                value={data.country_id}
-                                required
-                                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                            >
-                                {map(countries, (c: any, i) => (
-                                    <option value={c.id} key={i}>
-                                        {c.name}
-                                    </option>
-                                ))}
-                            </select>
-                            <InputError
-                                message={errors.country_id}
-                                className="mt-2"
-                            />
-                        </div>
-
                         {auth.isAdmin && (
                             <div>
                                 <InputLabel
                                     htmlFor="role"
-                                    value={getTrans('role')}
+                                    value={getTrans("role")}
                                     aria-required
                                 />
                                 <select
@@ -207,14 +178,14 @@ export default function ({
                                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                                 >
                                     <option value="company">
-                                        {getTrans('company')}
+                                        {getTrans("company")}
                                     </option>
                                     <option value="visitor">
-                                        {getTrans('visitor')}
+                                        {getTrans("visitor")}
                                     </option>
                                 </select>
                                 <InputError
-                                    message={get(errors, 'role')}
+                                    message={get(errors, "role")}
                                     className="mt-2"
                                 />
                             </div>
@@ -223,7 +194,7 @@ export default function ({
                             <div>
                                 <InputLabel
                                     htmlFor="categories"
-                                    value={getTrans('categories')}
+                                    value={getTrans("categories")}
                                     aria-required
                                 />
                                 <Select
@@ -236,14 +207,14 @@ export default function ({
                                         };
                                     })}
                                     onChange={(e: any) => {
-                                        const categories: any = map(e, 'value');
-                                        setData('categories', categories);
+                                        const categories: any = map(e, "value");
+                                        setData("categories", categories);
                                     }}
                                     className="basic-multi-select"
                                     classNamePrefix="select"
                                 />
                                 <InputError
-                                    message={get(errors, 'categories')}
+                                    message={get(errors, "categories")}
                                     className="mt-2"
                                 />
                             </div>
@@ -252,7 +223,7 @@ export default function ({
                             <div>
                                 <InputLabel
                                     htmlFor="tags"
-                                    value={getTrans('tags')}
+                                    value={getTrans("tags")}
                                     aria-required
                                 />
                                 <Select
@@ -265,14 +236,14 @@ export default function ({
                                         };
                                     })}
                                     onChange={(e: any) => {
-                                        const tags: any = map(e, 'value');
-                                        setData('tags', tags);
+                                        const tags: any = map(e, "value");
+                                        setData("tags", tags);
                                     }}
                                     className="basic-multi-select"
                                     classNamePrefix="select"
                                 />
                                 <InputError
-                                    message={get(errors, 'tags')}
+                                    message={get(errors, "tags")}
                                     className="mt-2"
                                 />
                             </div>
@@ -282,12 +253,12 @@ export default function ({
                             <div className="col-span-1">
                                 <InputLabel
                                     htmlFor="image"
-                                    value={getTrans('logo')}
+                                    value={getTrans("logo")}
                                     aria-required
                                 />
                                 <input
                                     onChange={(e: any) =>
-                                        setData('image', e.target?.files[0])
+                                        setData("image", e.target?.files[0])
                                     }
                                     type="file"
                                     name="image"
@@ -297,7 +268,7 @@ export default function ({
                                     className={`focus:ring-gray-500 focus:border-gray-500 block w-full border-gray-300 rounded-md`}
                                 />
                                 <InputError
-                                    message={get(errors, 'image')}
+                                    message={get(errors, "image")}
                                     className="mt-2"
                                 />
                             </div>
@@ -305,7 +276,7 @@ export default function ({
                     </div>
                     <div className="flex justify-end mt-6">
                         <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-500 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-600">
-                            {getTrans('save')}
+                            {getTrans("save")}
                         </button>
                     </div>
                 </section>
@@ -319,7 +290,7 @@ export default function ({
                             <div>
                                 <InputLabel
                                     htmlFor="name[en]"
-                                    value={getTrans('name_ar')}
+                                    value={getTrans("name_ar")}
                                     aria-required
                                 />
                                 <TextInput
@@ -328,7 +299,7 @@ export default function ({
                                     required
                                     aria-required
                                     onChange={(e) =>
-                                        setData('name', {
+                                        setData("name", {
                                             ...data.name,
                                             en: e.target.value,
                                         })
@@ -336,14 +307,14 @@ export default function ({
                                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                                 />
                                 <InputError
-                                    message={get(errors, 'name.en')}
+                                    message={get(errors, "name.en")}
                                     className="mt-2"
                                 />
                             </div>
                             <div>
                                 <InputLabel
                                     htmlFor="name[ar]"
-                                    value={getTrans('name_ar')}
+                                    value={getTrans("name_ar")}
                                     aria-required
                                 />
                                 <TextInput
@@ -352,7 +323,7 @@ export default function ({
                                     required
                                     aria-required
                                     onChange={(e) =>
-                                        setData('name', {
+                                        setData("name", {
                                             ...data.name,
                                             ar: e.target.value,
                                         })
@@ -360,7 +331,7 @@ export default function ({
                                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                                 />
                                 <InputError
-                                    message={get(errors, 'name.ar')}
+                                    message={get(errors, "name.ar")}
                                     className="mt-2"
                                 />
                             </div>
@@ -368,7 +339,7 @@ export default function ({
                             <div>
                                 <InputLabel
                                     htmlFor="name[ru]"
-                                    value={getTrans('name_ru')}
+                                    value={getTrans("name_ru")}
                                     aria-required
                                 />
                                 <TextInput
@@ -377,7 +348,7 @@ export default function ({
                                     required
                                     aria-required
                                     onChange={(e) =>
-                                        setData('name', {
+                                        setData("name", {
                                             ...data.name,
                                             ru: e.target.value,
                                         })
@@ -385,7 +356,7 @@ export default function ({
                                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                                 />
                                 <InputError
-                                    message={get(errors, 'name.ru')}
+                                    message={get(errors, "name.ru")}
                                     className="mt-2"
                                 />
                             </div>
@@ -395,7 +366,7 @@ export default function ({
                             <div>
                                 <InputLabel
                                     htmlFor="caption[en]"
-                                    value={getTrans('caption_en')}
+                                    value={getTrans("caption_en")}
                                     aria-required
                                 />
                                 <TextInput
@@ -404,7 +375,7 @@ export default function ({
                                     required
                                     aria-required
                                     onChange={(e) =>
-                                        setData('caption', {
+                                        setData("caption", {
                                             ...data.name,
                                             en: e.target.value,
                                         })
@@ -412,7 +383,7 @@ export default function ({
                                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                                 />
                                 <InputError
-                                    message={get(errors, 'caption.en')}
+                                    message={get(errors, "caption.en")}
                                     className="mt-2"
                                 />
                             </div>
@@ -420,7 +391,7 @@ export default function ({
                             <div>
                                 <InputLabel
                                     htmlFor="name"
-                                    value={getTrans('caption_ar')}
+                                    value={getTrans("caption_ar")}
                                     aria-required
                                 />
                                 <TextInput
@@ -429,7 +400,7 @@ export default function ({
                                     required
                                     aria-required
                                     onChange={(e) =>
-                                        setData('caption', {
+                                        setData("caption", {
                                             ...data.name,
                                             ar: e.target.value,
                                         })
@@ -437,7 +408,7 @@ export default function ({
                                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                                 />
                                 <InputError
-                                    message={get(errors, 'caption.ar')}
+                                    message={get(errors, "caption.ar")}
                                     className="mt-2"
                                 />
                             </div>
@@ -445,7 +416,7 @@ export default function ({
                             <div>
                                 <InputLabel
                                     htmlFor="name"
-                                    value={getTrans('caption_ru')}
+                                    value={getTrans("caption_ru")}
                                     aria-required
                                 />
                                 <TextInput
@@ -454,7 +425,7 @@ export default function ({
                                     required
                                     aria-required
                                     onChange={(e) =>
-                                        setData('caption', {
+                                        setData("caption", {
                                             ...data.name,
                                             ru: e.target.value,
                                         })
@@ -462,7 +433,7 @@ export default function ({
                                     className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
                                 />
                                 <InputError
-                                    message={get(errors, 'caption.ru')}
+                                    message={get(errors, "caption.ru")}
                                     className="mt-2"
                                 />
                             </div>
@@ -471,7 +442,7 @@ export default function ({
                         <div className="col-span-full">
                             <InputLabel
                                 htmlFor="description[ar]"
-                                value={getTrans('description.ar')}
+                                value={getTrans("description.ar")}
                             />
                             <TextEditor
                                 language="ar"
@@ -480,14 +451,14 @@ export default function ({
                                 data={data}
                             />
                             <InputError
-                                message={get(errors, 'description.ar')}
+                                message={get(errors, "description.ar")}
                                 className="mt-2"
                             />
                         </div>
                         <div className="col-span-full">
                             <InputLabel
                                 htmlFor="description[en]"
-                                value={getTrans('description.en')}
+                                value={getTrans("description.en")}
                             />
                             <TextEditor
                                 language="en"
@@ -496,14 +467,14 @@ export default function ({
                                 data={data}
                             />
                             <InputError
-                                message={get(errors, 'description.en')}
+                                message={get(errors, "description.en")}
                                 className="mt-2"
                             />
                         </div>
                         <div className="col-span-full">
                             <InputLabel
                                 htmlFor="description[ru]"
-                                value={getTrans('description.ru')}
+                                value={getTrans("description.ru")}
                             />
                             <TextEditor
                                 language="ru"
@@ -512,7 +483,7 @@ export default function ({
                                 data={data}
                             />
                             <InputError
-                                message={get(errors, 'description.ru')}
+                                message={get(errors, "description.ru")}
                                 className="mt-2"
                             />
                         </div>
@@ -520,7 +491,7 @@ export default function ({
 
                     <div className="flex justify-end mt-6">
                         <button className="px-6 py-2 leading-5 text-white transition-colors duration-200 transform bg-gray-500 rounded-md hover:bg-gray-700 focus:outline-none focus:bg-gray-600">
-                            {getTrans('save')}
+                            {getTrans("save")}
                         </button>
                     </div>
                 </section>

@@ -4,7 +4,11 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 
+use App\Models\Appointment;
+use App\Models\Order;
 use App\Models\User;
+use App\Policies\AppointmentPolicy;
+use App\Policies\OrderPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
@@ -18,6 +22,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         User::class => UserPolicy::class,
+        Appointment::class => AppointmentPolicy::class,
+        Order::class => OrderPolicy::class,
     ];
 
     /**
@@ -26,7 +32,7 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Gate::before(function ($user, $ability) {
-            dd('here');
+            dd('before policy applied');
             return $user->hasRole('super');
         });
         $this->registerPolicies();

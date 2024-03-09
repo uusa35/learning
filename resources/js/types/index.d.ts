@@ -11,6 +11,10 @@ export interface User {
 export type PageProps<T extends Record<string, unknown> = Record<string, unknown>> = T & {
     auth: {
         user: User;
+        isAdmin: boolean;
+        isDoctor: boolean;
+        isReceptionist: boolean;
+        api_token: string;
     };
     ziggy: Config & { location: string };
     currentRouteName: string;

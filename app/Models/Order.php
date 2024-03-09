@@ -2,10 +2,18 @@
 
 namespace App\Models;
 
+use App\Enums\OrdePaymentMethodEnum;
+use App\Enums\OrderStatusEnum;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Order extends PrimaryModel
 {
+    protected $guarded = [''];
+    protected $casts = [
+        'status' => OrderStatusEnum::class,
+        'payment_method' => OrdePaymentMethodEnum::class
+    ];
+
     public function appointment(): BelongsTo
     {
         return $this->belongsTo(Order::class);

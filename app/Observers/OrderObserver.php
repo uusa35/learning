@@ -25,6 +25,7 @@ class OrderObserver
      */
     public function updated(Order $order): void
     {
+        // will send a notification here to doctor / receptionist / patient 
     }
 
     /**

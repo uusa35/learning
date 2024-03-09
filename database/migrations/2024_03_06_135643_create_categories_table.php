@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name_ar');
             $table->string('name_en');
-            $table->string('image')->nullable()->default('square.png');
+            $table->string('image')->nullable()->default('category.png');
             $table->integer('order')->nullable();
             $table->boolean('active')->default(true);
             $table->integer('parent_id')->nullable()->unsigned()->default(0);

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name_en');
             $table->string('name_ar');
             $table->integer('order')->nullable();
-            $table->string('image')->default('square.png')->nullable();
+            $table->string('image')->default('tag.png')->nullable();
             $table->boolean('active')->default(true);
             $table->timestamps();
         });

@@ -49,6 +49,7 @@ return new class extends Migration
             $table->string('latitude')->nullable();
             $table->mediumText('keywords')->nullable();
             $table->longText('code')->nullable(); // for any scripts
+            $table->boolean('grid_side_menu')->default(true);
             $table->timestamps();
         });
     }

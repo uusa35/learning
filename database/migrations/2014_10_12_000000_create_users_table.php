@@ -23,6 +23,7 @@ return new class extends Migration
             $table->string('civil_id')->nullable();
             $table->string('nationality')->nullable();
             $table->date('dob');
+            $table->enum('gender', ['male', 'femail'])->default('male');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
 
@@ -31,7 +32,7 @@ return new class extends Migration
             $table->string('experience')->nullable();
             $table->enum('blood', ['A', 'B', 'A+', 'A-', 'AB', 'O-', 'O+', 'B+', 'B-', 'AB+', 'AB-']);
             $table->boolean('has_file')->default(false);
-            $table->string('image')->default('square.png')->nullable();
+            $table->string('image')->default('user.png')->nullable();
             $table->string('notes')->nullable();
             $table->string('description_ar')->nullable();
             $table->string('description_en')->nullable();

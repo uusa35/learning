@@ -7,9 +7,21 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Models\User;
 use App\Services\Search\UserFilters;
+use App\Services\Traits\ImageHelpers;
 
 class UserController extends Controller
 {
+    use ImageHelpers;
+    /**
+     * Create the controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->authorizeResource(User::class);
+    }
+
     /**
      * Display a listing of the resource.
      */

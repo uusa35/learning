@@ -23,7 +23,7 @@ class SlotFactory extends Factory
             'start' => Carbon::parse(fake()->dateTimeBetween('now', '+1 minutes'))->format('H:i:s'),
             'end' => Carbon::parse(fake()->dateTimeBetween('now', '+20 minutes'))->format('H:i:s'),
             'day_id' => Day::all()->random()->id,
-            'user_id' => User::role('doctor')->get()->random()->id
+            'doctor_id' => User::role('doctor')->get()->random()->id
         ];
     }
 }

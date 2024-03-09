@@ -90,9 +90,9 @@ class RoleSeeder extends Seeder
                     Permission::where(["name" => $per . "_index"])->first()->assignRole($currentRole);
                     Permission::where(["name" => $per . "_create"])->first()->assignRole($currentRole);
                     Permission::where(["name" => $per . "_edit"])->first()->assignRole($currentRole);
+                    Permission::where(["name" => $per . "_delete"])->first()->assignRole($currentRole);
                 }
             }
-
             if ($role === "doctor") {
                 foreach ($doctorPermissions as $per) {
                     Permission::where(["name" => $per . "_index"])->first()->assignRole($currentRole);

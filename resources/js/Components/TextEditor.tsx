@@ -28,7 +28,7 @@ export function TextEditor({
     return (
         <SunEditor
             defaultValue={defaultValue}
-            onChange={(e) => handleChange(e)}
+            onChange={(e: any) => handleChange(e)}
             setOptions={{
                 height: `200`,
                 buttonList: buttonList.complex,

@@ -4,18 +4,18 @@ import { PageProps } from "@/types/index.d";
 import { get, map } from "lodash";
 import { getTrans } from "@/constants";
 import { FormEventHandler, useState } from "react";
-import InputLabel from "@/Components/InputLabel";
-import TextInput from "@/Components/TextInput";
-import InputError from "@/Components/InputError";
+import InputLabel from "@/components/InputLabel";
+import TextInput from "@/components/TextInput";
+import InputError from "@/components/InputError";
 import "suneditor/dist/css/suneditor.min.css";
-import { TextEditor } from "@/Components/TextEditor";
+import { TextEditor } from "@/components/TextEditor";
 import Select from "react-select";
 import { router } from "@inertiajs/react";
-import { useAppDispatch } from "@/Redux/hooks";
+import { useAppDispatch } from "@/redux/hooks";
 import {
     showSuccessToastMessage,
     showWarningToastMessage,
-} from "@/Redux/slices/toastMessageSlice";
+} from "@/redux/slices/toastMessageSlice";
 
 interface FormProps {
     username: string;
@@ -23,7 +23,6 @@ interface FormProps {
     password_confirmation: string;
     email: string;
     image: string;
-    country_id: string;
     role: string;
     name: any;
     description: any;
@@ -50,7 +49,6 @@ interface FormProps {
 
 export default function UserEdit({
     element,
-    countries,
     categories,
     tags,
     auth,
@@ -64,7 +62,6 @@ export default function UserEdit({
             email: element.email,
             image: element.image,
             banner: element.banner,
-            country_id: element.country_id,
             role: element.roles[0]?.name ?? `visitor`,
             name: {
                 ar: element.name?.ar,
@@ -108,7 +105,7 @@ export default function UserEdit({
     const handleChange = (
         e:
             | React.ChangeEvent<HTMLInputElement>
-            | React.ChangeEvent<HTMLSelectElement>
+            | React.ChangeEvent<HTMLSelectElement>,
     ): void => {
         setData((values) => ({
             ...values,
@@ -127,7 +124,7 @@ export default function UserEdit({
             },
             {
                 forceFormData: true,
-            }
+            },
         );
     };
     const handleImages = (imagesGroup: any) => {
@@ -154,14 +151,14 @@ export default function UserEdit({
                     dispatch(
                         showSuccessToastMessage({
                             content: getTrans("process_success"),
-                        })
+                        }),
                     );
                 },
                 onError: () =>
                     dispatch(
                         showWarningToastMessage({
                             content: getTrans("process_failure"),
-                        })
+                        }),
                     ),
                 preserveScroll: false,
             });
@@ -169,9 +166,9 @@ export default function UserEdit({
             dispatch(
                 showWarningToastMessage({
                     content: getTrans(
-                        "not_allowed_to_upload_more_than_10_or_less"
+                        "not_allowed_to_upload_more_than_10_or_less",
                     ),
-                })
+                }),
             );
         }
     };
@@ -229,31 +226,6 @@ export default function UserEdit({
                             />
                         </div>
 
-                        <div>
-                            <InputLabel
-                                htmlFor="country_id"
-                                value={getTrans("country")}
-                                aria-required
-                            />
-                            <select
-                                onChange={(e) => handleChange(e)}
-                                id="country_id"
-                                name="country_id"
-                                defaultValue={element.country_id}
-                                required
-                                className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
-                            >
-                                {map(countries, (c: any, i) => (
-                                    <option value={c.id} key={i}>
-                                        {c.name}
-                                    </option>
-                                ))}
-                            </select>
-                            <InputError
-                                message={errors.country_id}
-                                className="mt-2"
-                            />
-                        </div>
                         {/* role */}
                         {auth.isAdmin && (
                             <div>
@@ -297,7 +269,7 @@ export default function UserEdit({
                                                 label: c.name.en,
                                                 value: c.id,
                                             };
-                                        }
+                                        },
                                     )}
                                     isMulti
                                     required
@@ -400,7 +372,7 @@ export default function UserEdit({
                                         onChange={(e: any) =>
                                             setData(
                                                 "banner",
-                                                e.target?.files[0]
+                                                e.target?.files[0],
                                             )
                                         }
                                         type="file"

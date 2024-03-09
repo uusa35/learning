@@ -10,21 +10,46 @@ import {
     HoverCardTrigger,
 } from "@/shadcn/ui/hover-card";
 import { Tooltip } from "@/shadcn/ui/tooltip";
+import { Calendar, momentLocalizer } from "react-big-calendar";
+import "react-big-calendar/lib/css/react-big-calendar.css";
+// @import 'react-big-calendar/lib/addons/dragAndDrop/styles'; //
+
+const localizer = momentLocalizer(moment);
 
 const AppointmentCalendar = () => {
     const events = [
         {
             title: "title one",
             description: "description for Click for Google",
-            start: moment().format(),
-            end: moment().add(2, "hours").format(),
-            display: "block",
-            backgroundColor: "green",
+            start: moment().toDate(),
+            end: moment().add(2, "hours").toDate(),
+            data: {
+                appointment: {
+                    id: 1,
+                    status: "PENDING",
+                    location: "Kuwait",
+                    address: "teseting adress",
+                },
+            },
+            isDraggable : true
+            // display: "block",
+            // backgroundColor: "green",
         },
     ];
+    console.log("max", moment("5pm", "ha").toDate());
     return (
-        <div className="mx-4">
-            <Fullcalendar
+        <div className="mx-4 gap-y-4">
+            <Calendar
+                localizer={localizer}
+                events={events}
+                defaultView="week"
+                startAccessor="start"
+                endAccessor="end"
+                style={{ height: 500 }}
+                min={moment("9am", "ha").toDate()}
+                max={moment("9pm", "ha").toDate()}
+            />
+            {/* <Fullcalendar
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                 initialView={"dayGridMonth"}
                 handleWindowResize={true}
@@ -55,7 +80,7 @@ const AppointmentCalendar = () => {
                         );
                     },
                 })}
-            />
+            /> */}
         </div>
     );
 };

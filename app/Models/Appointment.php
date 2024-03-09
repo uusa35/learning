@@ -25,7 +25,7 @@ class Appointment extends PrimaryModel
 
     public function slot(): BelongsTo
     {
-        return $this->belongsTo(Slot::class);
+        return $this->belongsTo(Slot::class, 'doctor_id');
     }
 
     public function order(): HasOne

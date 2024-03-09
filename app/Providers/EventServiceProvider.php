@@ -3,8 +3,10 @@
 namespace App\Providers;
 
 use App\Listeners\LogSuccessfulLogout;
+use App\Models\Appointment;
 use App\Models\Order;
 use App\Models\User;
+use App\Observers\AppointmentObserver;
 use App\Observers\OrderObserver;
 use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
@@ -35,6 +37,7 @@ class EventServiceProvider extends ServiceProvider
     {
         User::observe(UserObserver::class);
         Order::observe(OrderObserver::class);
+        Appointment::observe(AppointmentObserver::class);
     }
 
     /**
